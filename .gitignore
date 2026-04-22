@@ -5,3 +5,15 @@
 # React Router
 /.react-router/
 /build/
+
+# IntelliJ IDEA
+/.idea/prettier.xml
+/.idea/modules.xml
+/.idea/misc.xml
+/.idea/codeStyles/Project.xml
+/.idea/dictionaries/project.xml
+/.idea/frontend.iml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/ShadcnHelperSettings.xml
+/.idea/vcs.xml
+/.idea/.gitignore
