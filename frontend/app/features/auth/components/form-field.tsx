@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { Controller } from "react-hook-form"
 import type { Control, FieldValues, Path } from "react-hook-form"
-import { Field, FieldLabel, FieldError } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
 import { Eye, EyeOff } from "lucide-react"
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
 
 interface FormFieldProps<
   T extends FieldValues,

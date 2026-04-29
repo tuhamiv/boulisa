@@ -1,12 +1,19 @@
 import { Controller, useFormContext } from "react-hook-form"
-import { type FormSchema } from "@/routes/carrier/auth/schema"
-import { Field, FieldGroup } from "@/components/ui/field"
-import { FormField } from "@/components/form-field"
-import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
+import type { FormSchema } from "@/features/auth/logic/schema"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
+import { Field, FieldGroup } from "@/components/ui/field"
+import { FormField } from "@/features/auth/components/form-field"
+import { Button } from "@/components/ui/button"
 
 const plans = [
   {

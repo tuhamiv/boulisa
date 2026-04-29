@@ -1,4 +1,4 @@
-import formSchema from "@/routes/carrier/auth/schema"
+import formSchema from "@/features/auth/logic/schema"
 
 describe("Validate National ID Logic", () => {
   const testCases = [
@@ -23,8 +23,8 @@ describe("Validate National ID Logic", () => {
       nationalId: "40402210400139",
       expected: false,
     },
-    { description: "", nationalId: "30402210400139", expected: true },
-    { description: "", nationalId: "28110020400205", expected: true },
+    { description: "Valid", nationalId: "30402210400139", expected: true },
+    { description: "Valid", nationalId: "28110020400205", expected: true },
   ]
 
   it.each(testCases)("$description ($nationalId)", ({ nationalId, expected }) => {

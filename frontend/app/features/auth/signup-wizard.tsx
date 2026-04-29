@@ -1,17 +1,16 @@
-import signupHi from "@/routes/carrier/auth/signup-hi.svg"
+import signupHi from "@/features/auth/assets/signup-hi.svg"
 import { FormProvider, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { FormSchema } from "@/routes/carrier/auth/schema"
-import formSchema from "@/routes/carrier/auth/schema"
 import { ChevronRight, CreditCard, House, User } from "lucide-react"
-import Logo from "@/components/logo"
-import FormStep from "@/components/form-step"
 import React, { Fragment, useState } from "react"
-import AccountStep from "@/routes/carrier/auth/account-step"
-import ProfileStep from "@/routes/carrier/auth/profile-step"
-import BillingStep from "@/routes/carrier/auth/billing-step"
+import Logo from "@/components/shared/logo"
+import FormStep from "@/features/auth/components/form-step"
+import formSchema, { type FormSchema } from "@/features/auth/logic/schema"
+import AccountStep from "@/features/auth/components/account-step"
+import ProfileStep from "@/features/auth/components/profile-step"
+import BillingStep from "@/features/auth/components/billing-step"
+import FormSentStep from "@/features/auth/components/form-sent-step"
 import { Button } from "@/components/ui/button"
-import FormSentStep from "@/routes/carrier/auth/form-sent-step"
 
 const steps = [
   {
@@ -34,7 +33,7 @@ const steps = [
   },
 ]
 
-function Signup() {
+export function SignupWizard() {
 
   const [currentStep, setCurrentStep] = useState(1)
 
@@ -127,5 +126,3 @@ function Signup() {
     </FormProvider>
   )
 }
-
-export default Signup

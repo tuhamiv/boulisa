@@ -1,11 +1,15 @@
 import { useFormContext } from "react-hook-form"
-import { type FormSchema } from "@/routes/carrier/auth/schema"
-import { Field, FieldGroup } from "@/components/ui/field"
-import { FormField } from "@/components/form-field"
-import { Button } from "@/components/ui/button"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import React from "react"
-import { formatMobile, formatNationalId, parseRawValue } from "@/lib/formatters"
+import type { FormSchema } from "@/features/auth/logic/schema"
+import { Field, FieldGroup } from "@/components/ui/field"
+import { FormField } from "@/features/auth/components/form-field"
+import {
+  formatMobile,
+  formatNationalId,
+  parseRawValue,
+} from "@/features/auth/logic/formatters"
+import { Button } from "@/components/ui/button"
 
 function ProfileStep({
   onPrev,

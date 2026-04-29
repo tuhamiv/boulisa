@@ -1,9 +1,10 @@
 import { useState } from 'react'
+import { Switch } from "@/components/ui/switch"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
 
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Switch } from '@/components/ui/switch'
-import { Separator } from '@/components/ui/separator'
+
 
 type PricingPlan = {
   id: number

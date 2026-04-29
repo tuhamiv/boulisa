@@ -1,10 +1,11 @@
 import React from "react"
 import { useFormContext } from "react-hook-form"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import type { FormSchema } from "@/features/auth/logic/schema"
 import { Field, FieldGroup } from "@/components/ui/field"
-import { FormField } from "@/components/form-field"
+import { FormField } from "@/features/auth/components/form-field"
 import { Button } from "@/components/ui/button"
-import type { FormSchema } from "@/routes/carrier/auth/schema"
+
 
 function AccountStep({onNext}: {onNext: () => void}) {
 

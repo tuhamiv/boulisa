@@ -2,8 +2,8 @@ import { Link } from "react-router"
 import { ArrowRight, Package, Users, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import PricingCards from "@/components/shadcn-studio/blocks/pricing-component-01/pricing-component-01"
-import Logo from "@/components/logo"
+import Logo from "@/components/shared/logo"
+import PricingCards from "@/components/shadcn-studio/pricing-block"
 
 const menuItems = [
   { id: 1, href: "#features", name: "Features" },
