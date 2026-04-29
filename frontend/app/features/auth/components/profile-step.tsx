@@ -19,11 +19,16 @@ function ProfileStep({
   onNext: () => void
 }) {
 
-  const { control, trigger } = useFormContext<FormSchema>();
+  const { control, trigger, getValues, setValue } = useFormContext<FormSchema>();
 
   const handleNext = async () => {
     const isValid = await trigger(["profile"]);
     if (isValid) {
+
+      if (!getValues("billing.nameOnCard")) {
+        setValue("billing.nameOnCard", getValues("profile.firstName") + " " + getValues("profile.fatherName"))
+      }
+
       onNext();
     }
   }
