@@ -14,7 +14,9 @@
     "jsx": "react-jsx",
     "rootDirs": [".", "./.react-router/types"],
     "paths": {
-      "@/*": ["./app/*"]
+      "@/*": ["./app/*"],
+      "@/features/*": ["./app/features/*"],
+      "@/components/*": ["./app/components/*"]
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,
