@@ -105,7 +105,17 @@ const formSchema = z.object({
 
   billing: z.object({
     plan: z.enum(["pro", "elite"]),
-    nameOnCard: z.string(),
+    nameOnCard: z
+        .string()
+        .transform(noc => noc.trim().normalize("NFKC").toLowerCase())
+        .pipe(z
+          .string()
+          .min(2, "Must be at least 2 letters")
+          .max(50, "Must be at most 50 letters")
+          .regex(/^[\p{L}\s'-]+$/u, "Letters, spaces, ' and - only")
+          .regex(/^\p{L}/u, "Must start with a letter")
+          .regex(/\p{L}$/u, "Must end with a letter")
+        ),
     cardNumber: z.string(),
     expiryDate: z.string(),
     cvc: z.string(),
