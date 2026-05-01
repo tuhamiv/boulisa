@@ -97,3 +97,58 @@ describe("Validate Name on Card Logic", () => {
     expect(formSchema.shape.billing.shape.nameOnCard.safeParse(nameOnCard).success).toBe(expected);
   })
 })
+
+describe("Validate Card Number Logic", () => {
+  const testCases = [
+    {
+      description: "Valid, start with valid digit",
+      cardNumber: "4111111111111111",
+      expected: true,
+    },
+    {
+      description: "Valid, start with valid digit",
+      cardNumber: "5555555555554444",
+      expected: true,
+    },
+    {
+      description: "Invalid, start with invalid digit",
+      cardNumber: "378282246310005",
+      expected: false,
+    },
+    {
+      description: "Invalid, contain only digits",
+      cardNumber: "4111111111111d11",
+      expected: false,
+    },
+    {
+      description: "Invalid, violate length rule",
+      cardNumber: "421571392437670",
+      expected: false,
+    },
+    {
+      description: "Invalid, violate length rule",
+      cardNumber: "555415864802680",
+      expected: false,
+    },
+    {
+      description: "Invalid, violate Luhn algorithm",
+      cardNumber: "4111111111111112",
+      expected: false,
+    },
+    {
+      description: "Invalid, violate Luhn algorithm",
+      cardNumber: "2221000000000001",
+      expected: false,
+    },
+    {
+      description: "Invalid, violate Luhn algorithm",
+      cardNumber: "5105105105105106",
+      expected: false,
+    },
+  ]
+
+  it.each(testCases)("$description ($cardNumber)", ({ cardNumber, expected }) => {
+    expect(formSchema.shape.billing.shape.cardNumber.safeParse(cardNumber).success).toBe(expected);
+  })
+
+})
