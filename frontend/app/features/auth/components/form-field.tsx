@@ -4,6 +4,7 @@ import type { Control, FieldValues, Path } from "react-hook-form"
 import { Eye, EyeOff } from "lucide-react"
 import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { cn } from "@/lib/utils"
 
 interface FormFieldProps<
   T extends FieldValues,
@@ -13,6 +14,7 @@ interface FormFieldProps<
   label: string
   formatValue?: (value: string) => string
   parseValue?: (value: string) => string
+  suffix?: React.ReactNode
 }
 
 export function FormField<T extends FieldValues>({
@@ -23,6 +25,7 @@ export function FormField<T extends FieldValues>({
   type,
   formatValue,
   parseValue,
+  suffix,
   ...props
 }: FormFieldProps<T>) {
 
@@ -47,28 +50,30 @@ export function FormField<T extends FieldValues>({
               id={field.name}
               type={inputType}
               value={formatValue ? formatValue(field.value || "") : field.value}
-              onChange={e => {
+              onChange={(e) => {
                 const value = e.target.value
                 field.onChange(parseValue ? parseValue(value) : value)
               }}
               {...props}
-              className={isPasswordField ? "pr-10" : ""}
+              className={cn(
+                className,
+                suffix ? "pr-20" : "",
+                isPasswordField ? "pr-10" : ""
+              )}
             />
 
-            {isPasswordField && (
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none"
-                tabIndex={-1}
-              >
-                {showPassword ? (
-                  <EyeOff className="h-4 w-4" />
-                ) : (
-                  <Eye className="h-4 w-4" />
-                )}
-              </button>
-            )}
+            <div className="absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-2">
+              {isPasswordField ? (
+                <button type="button" onClick={togglePasswordVisibility}>
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>) : (
+                suffix
+              )}
+            </div>
           </div>
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
         </Field>
