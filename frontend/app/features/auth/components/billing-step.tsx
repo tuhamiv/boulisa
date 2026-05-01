@@ -18,6 +18,7 @@ import {
   formatCardNumber,
   parseRawValue,
 } from "@/features/auth/logic/formatters"
+import CardBrandIcons from "@/features/auth/components/card-brand-icons"
 
 const plans = [
   {
@@ -123,6 +124,7 @@ function BillingStep({
           parseValue={parseRawValue}
           placeholder="0123 4567 8901 2345"
           className="col-span-2"
+          suffix={<CardBrandIcons control={control} />}
         />
         <FormField
           name="billing.expiryDate"
