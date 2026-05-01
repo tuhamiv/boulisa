@@ -14,6 +14,10 @@ import { Label } from "@/components/ui/label"
 import { Field, FieldGroup } from "@/components/ui/field"
 import { FormField } from "@/features/auth/components/form-field"
 import { Button } from "@/components/ui/button"
+import {
+  formatCardNumber,
+  parseRawValue,
+} from "@/features/auth/logic/formatters"
 
 const plans = [
   {
@@ -55,8 +59,16 @@ function BillingStep({
           Select Plan as per Your Requirements
         </span>
       </div>
-      <Controller control={control} name="billing.plan" render={({ field }) => (
-          <RadioGroup onValueChange={field.onChange} value={field.value} defaultValue={field.value} className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <Controller
+        control={control}
+        name="billing.plan"
+        render={({ field }) => (
+          <RadioGroup
+            onValueChange={field.onChange}
+            value={field.value}
+            defaultValue={field.value}
+            className="grid grid-cols-1 gap-6 md:grid-cols-2"
+          >
             {plans.map((plan) => (
               <Label key={plan.id} htmlFor={plan.id} className="cursor-pointer">
                 <Card className="w-full has-data-[state=checked]:border-ring has-data-[state=checked]:ring-3 has-data-[state=checked]:ring-ring/50">
@@ -87,7 +99,8 @@ function BillingStep({
               </Label>
             ))}
           </RadioGroup>
-        )} />
+        )}
+      />
       <div className="my-6 flex flex-col">
         <span className="text-2xl font-semibold">Payment Information</span>
         <span className="text-base text-muted-foreground">
@@ -106,6 +119,8 @@ function BillingStep({
           name="billing.cardNumber"
           control={control}
           label="Card Number"
+          formatValue={formatCardNumber}
+          parseValue={parseRawValue}
           placeholder="0123 4567 8901 2345"
           className="col-span-2"
         />
@@ -124,7 +139,10 @@ function BillingStep({
           className="col-span-1"
         />
       </FieldGroup>
-      <Field orientation="horizontal" className="mt-6 flex items-center justify-between">
+      <Field
+        orientation="horizontal"
+        className="mt-6 flex items-center justify-between"
+      >
         <Button type="button" variant="ghost" onClick={onPrev}>
           <ArrowLeft />
           Previous

@@ -20,4 +20,13 @@ export const formatMobile = (val: string) => {
   return parts.join(" ")
 }
 
+export const formatCardNumber = (val: string) => {
+  const v = val.replace(/\D/g, "").slice(0, 16);
+  const parts = []
+  for (let i= 0; i < v.length; i+=4) {
+    parts.push(v.slice(i, i + 4));
+  }
+  return parts.join(" ");
+}
+
 export const parseRawValue = (val: string) => val.replace(/\D/g, "")
