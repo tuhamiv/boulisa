@@ -152,3 +152,67 @@ describe("Validate Card Number Logic", () => {
   })
 
 })
+
+describe("Validate Card Expiry Date Logic", () => {
+  const testCases = [
+    {
+      description: "Invalid, contains non-digit characters",
+      expiryDate: "bell",
+      expected: false,
+    },
+    {
+      description: "Invalid, contains non-digit characters",
+      expiryDate: "mm26",
+      expected: false,
+    },
+    {
+      description: "Invalid, contains non-digit characters",
+      expiryDate: "12yy",
+      expected: false,
+    },
+    {
+      description: "Invalid, incomplete expiry date",
+      expiryDate: "",
+      expected: false,
+    },
+    {
+      description: "Invalid, incomplete expiry date",
+      expiryDate: "1",
+      expected: false,
+    },
+    {
+      description: "Invalid, incomplete expiry date",
+      expiryDate: "12",
+      expected: false,
+    },
+    {
+      description: "Invalid, incomplete expiry date",
+      expiryDate: "123",
+      expected: false,
+    },
+    {
+      description: "Valid, complete expiry date",
+      expiryDate: "1230",
+      expected: true,
+    },
+    {
+      description: "Invalid, invalid month",
+      expiryDate: "1326",
+      expected: false,
+    },
+    {
+      description: "Invalid, card has expired",
+      expiryDate: "1225",
+      expected: false,
+    },
+    {
+      description: "Invalid, card has expired",
+      expiryDate: "0326",
+      expected: false
+    }
+  ]
+
+  it.each(testCases)("$description ($expiryDate)", ({ expiryDate, expected }) => {
+    expect(formSchema.shape.billing.shape.expiryDate.safeParse(expiryDate).success).toBe(expected);
+  })
+})
