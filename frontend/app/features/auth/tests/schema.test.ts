@@ -216,3 +216,42 @@ describe("Validate Card Expiry Date Logic", () => {
     expect(formSchema.shape.billing.shape.expiryDate.safeParse(expiryDate).success).toBe(expected);
   })
 })
+
+describe("Validate Card CVV Logic", () => {
+  const testCases = [
+    {
+      description: "Invalid, violates length rule",
+      cvv: "",
+      expected: false,
+    },
+    {
+      description: "Invalid, violates length rule",
+      cvv: "1",
+      expected: false,
+    },
+    {
+      description: "Invalid, violates length rule",
+      cvv: "12",
+      expected: false,
+    },
+    {
+      description: "Valid, follow length rule",
+      cvv: "123",
+      expected: true,
+    },
+    {
+      description: "Invalid, contains non-digit characters",
+      cvv: "$23",
+      expected: false,
+    },
+    {
+      description: "Invalid, contains non-digit characters",
+      cvv: "r23",
+      expected: false,
+    },
+  ]
+
+  it.each(testCases)("$description ($cvv)", ({ cvv, expected }) => {
+    expect(formSchema.shape.billing.shape.cvv.safeParse(cvv).success).toBe(expected);
+  })
+})
