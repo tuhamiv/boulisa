@@ -16,6 +16,7 @@ import { FormField } from "@/features/auth/components/form-field"
 import { Button } from "@/components/ui/button"
 import {
   formatCardNumber,
+  formatCVV,
   formatExpiryDate,
   parseRawValue,
 } from "@/features/auth/logic/formatters"
@@ -137,10 +138,12 @@ function BillingStep({
           className="col-span-1"
         />
         <FormField
-          name="billing.cvc"
+          name="billing.cvv"
           control={control}
-          label="CVC"
+          label="CVV"
           placeholder="123"
+          formatValue={formatCVV}
+          parseValue={parseRawValue}
           className="col-span-1"
         />
       </FieldGroup>

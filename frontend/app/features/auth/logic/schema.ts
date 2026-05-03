@@ -130,9 +130,8 @@ const formSchema = z.object({
           .regex(/^\p{L}/u, "Must start with a letter")
           .regex(/\p{L}$/u, "Must end with a letter")
       ),
-    cardNumber: z
-      .string()
-      .pipe(z
+    cardNumber: z.string().pipe(
+      z
         .string()
         .refine((cdn) => /^[245]/.test(cdn), {
           message: "Unsupported card number",
@@ -155,10 +154,9 @@ const formSchema = z.object({
           },
           { message: "Invalid card number" }
         )
-      ),
-    expiryDate: z
-      .string()
-      .pipe(z
+    ),
+    expiryDate: z.string().pipe(
+      z
         .string()
         .length(4, "Expiry date is incomplete")
         .superRefine((ed, ctx) => {
@@ -169,26 +167,34 @@ const formSchema = z.object({
             })
           }
 
-          const date = new Date();
-          const month = Number(ed.slice(0, 2));
-          const year = Number(ed.slice(2, 4)) + Math.trunc(date.getFullYear() / 1000) * 1000;
+          const date = new Date()
+          const month = Number(ed.slice(0, 2))
+          const year =
+            Number(ed.slice(2, 4)) +
+            Math.trunc(date.getFullYear() / 1000) * 1000
 
           if (!(month >= 1 && month <= 12)) {
             ctx.addIssue({
               code: "custom",
-              message: "Invalid month"
-            });
+              message: "Invalid month",
+            })
           }
 
-          if (year < date.getFullYear() || (year === date.getFullYear() && month < date.getMonth() + 1)) {
+          if (
+            year < date.getFullYear() ||
+            (year === date.getFullYear() && month < date.getMonth() + 1)
+          ) {
             ctx.addIssue({
               code: "custom",
               message: "Card has expired",
             })
           }
         })
-      ),
-    cvc: z.string(),
+    ),
+    cvv: z
+      .string()
+      .refine((cvv) => !/\D/.test(cvv), { message: "Only digits are allowed" })
+      .length(3, "Invalid CVV"),
   }),
 })
 

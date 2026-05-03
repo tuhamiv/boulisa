@@ -42,4 +42,8 @@ export const formatExpiryDate = (val: string) => {
   return parts.join(" / ")
 }
 
+export const formatCVV = (val: string) => {
+  return val.slice(0, 3);
+}
+
 export const parseRawValue = (val: string) => val.replace(/\D/g, "")
