@@ -16,6 +16,7 @@ import { FormField } from "@/features/auth/components/form-field"
 import { Button } from "@/components/ui/button"
 import {
   formatCardNumber,
+  formatExpiryDate,
   parseRawValue,
 } from "@/features/auth/logic/formatters"
 import CardBrandIcons from "@/features/auth/components/card-brand-icons"
@@ -130,7 +131,9 @@ function BillingStep({
           name="billing.expiryDate"
           control={control}
           label="Expiry Date"
-          placeholder="MM/YY"
+          placeholder="MM / YY"
+          formatValue={formatExpiryDate}
+          parseValue={parseRawValue}
           className="col-span-1"
         />
         <FormField

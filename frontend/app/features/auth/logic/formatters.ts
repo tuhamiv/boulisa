@@ -29,4 +29,17 @@ export const formatCardNumber = (val: string) => {
   return parts.join(" ");
 }
 
+export const formatExpiryDate = (val: string) => {
+  if (val.length === 1 && Number(val) > 1) val = "0" + val;
+  if (val.length >= 2) {
+    const month = Number(val.slice(0, 2));
+    if (month > 12) val = "12" + val.slice(2);
+    if (month === 0) val = "01" + val.slice(2);
+  }
+  const parts = []
+  if (val.length > 0) parts.push(val.slice(0, 2))
+  if (val.length > 2) parts.push(val.slice(2, 4))
+  return parts.join(" / ")
+}
+
 export const parseRawValue = (val: string) => val.replace(/\D/g, "")

@@ -156,7 +156,38 @@ const formSchema = z.object({
           { message: "Invalid card number" }
         )
       ),
-    expiryDate: z.string(),
+    expiryDate: z
+      .string()
+      .pipe(z
+        .string()
+        .length(4, "Expiry date is incomplete")
+        .superRefine((ed, ctx) => {
+          if (/\D/.test(ed)) {
+            ctx.addIssue({
+              code: "custom",
+              message: "Only digits are allowed",
+            })
+          }
+
+          const date = new Date();
+          const month = Number(ed.slice(0, 2));
+          const year = Number(ed.slice(2, 4)) + Math.trunc(date.getFullYear() / 1000) * 1000;
+
+          if (!(month >= 1 && month <= 12)) {
+            ctx.addIssue({
+              code: "custom",
+              message: "Invalid month"
+            });
+          }
+
+          if (year < date.getFullYear() || (year === date.getFullYear() && month < date.getMonth() + 1)) {
+            ctx.addIssue({
+              code: "custom",
+              message: "Card has expired",
+            })
+          }
+        })
+      ),
     cvc: z.string(),
   }),
 })
