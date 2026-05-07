@@ -21,6 +21,7 @@ import {
   parseRawValue,
 } from "@/features/auth/logic/formatters"
 import CardBrandIcons from "@/features/auth/components/card-brand-icons"
+import { signup } from "@/features/auth/service/service"
 
 const plans = [
   {
@@ -50,7 +51,9 @@ function BillingStep({
   const {control, handleSubmit} = useFormContext<FormSchema>();
 
   const onSubmit = (data: FormSchema) => {
-    console.log(data);
+    console.log("Data on submit: " + data);
+    const promise = signup(data);
+    console.log("Promise: " + promise);
     if(onNext) onNext();
   }
 

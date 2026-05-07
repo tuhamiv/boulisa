@@ -46,25 +46,25 @@ export function SignupWizard() {
     mode: "onBlur",
     defaultValues: {
       account: {
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
+        username: "Tuhami",
+        email: "abdultuhamii@gmail.com",
+        password: "Btrsgwqa9f7Nshjd",
+        confirmPassword: "Btrsgwqa9f7Nshjd",
       },
       profile: {
-        firstName: "",
-        fatherName: "",
-        grandfatherName: "",
-        familyName: "",
-        nationalId: "",
-        mobile: "",
+        firstName: "Abdulrahman",
+        fatherName: "Mustafa",
+        grandfatherName: "Mohamed",
+        familyName: "Al-Tuhami",
+        nationalId: "30402210400139",
+        mobile: "01154174079",
       },
       billing: {
         plan: "pro",
         nameOnCard: "",
-        cardNumber: "",
-        expiryDate: "",
-        cvc: "",
+        cardNumber: "4111111111111111",
+        expiryDate: "1230",
+        cvv: "123",
       },
     },
   })
@@ -92,7 +92,7 @@ export function SignupWizard() {
             <Logo />
           </div>
           <div className="">
-            <img src={signupHi} alt="Hi user" />
+            <img src={signupHi} alt="Hi" />
           </div>
         </div>
         <div className="flex flex-col items-center justify-center p-6 md:p-12 lg:col-span-2">
