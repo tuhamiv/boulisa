@@ -6,10 +6,14 @@ const nameConstraints = z
   .pipe(z
     .string()
     .min(2, "Must be at least 2 characters")
-    .max(50, "Must be at most 50 characters")
+    .max(30, "Must be at most 30 characters")
     .regex(/^[\p{L}\s'-]+$/u, "Letters, spaces, ' and - only")
     .regex(/^\p{L}/u, "Must start with a letter")
     .regex(/\p{L}$/u, "Must end with a letter")
+    .refine(
+      (s) => !/['\s-]{2,}/.test(s),
+      "Cannot contain consecutive symbols"
+    )
   );
 
 const nationalIdCenturyPattern = "[23]";
@@ -29,19 +33,22 @@ const formSchema = z.object({
         .pipe(
           z
             .string()
-            .min(3, "Must be at least 3 characters")
-            .max(20, "Must be at most 20 characters")
-            .regex(/^[\p{L}\p{N}._]+$/u, "Letters, numbers, . and _ only")
-            .regex(/^[\p{L}\p{N}]/u, "Cannot start with a symbol")
-            .regex(/[\p{L}\p{N}]$/u, "Cannot end with a symbol")
-            .regex(/\p{L}/u, "Must contain at least one letter")
+            .min(3, "Username must be at least 3 characters")
+            .max(20, "Username must be at most 20 characters")
+            .regex(
+              /^[\p{L}\p{N}.'_-]+$/u,
+              "Letters, numbers, . _ -, and ' only are allowed"
+            )
+            .regex(/^[\p{L}\p{N}]/u, "Username cannot start with a symbol")
+            .regex(/[\p{L}\p{N}]$/u, "Username cannot end with a symbol")
+            .regex(/\p{L}/u, "Username must contain at least one letter")
             .refine(
               (s) => !/[._]{2,}/.test(s),
-              "Cannot contain consecutive symbols"
+              "Username cannot contain consecutive symbols"
             )
             .refine(
               (s) => !["admin", "root", "support", "api", "help"].includes(s),
-              "This username is reserved"
+              "Username is reserved"
             )
         ),
       email: z.email("Please enter a valid email"),
