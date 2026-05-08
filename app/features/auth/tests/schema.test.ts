@@ -1,5 +1,59 @@
 import formSchema from "@/features/auth/logic/schema"
 
+describe("Validate Name (first - father - grandfather - family) Logic", () => {
+  const testCases = [
+    {
+      description: "Invalid, Should be at least 2 characters",
+      name: "n",
+      expected: false,
+    },
+    {
+      description: "Invalid, Should be at most 30 characters",
+      name: "n".repeat(31),
+      expected: false,
+    },
+    {
+      description: "Invalid, Should have only letters, spaces, - and '",
+      name: "n&e",
+      expected: false,
+    },
+    {
+      description: "Invalid, Should have only letters, spaces, - and '",
+      name: "n3e",
+      expected: false,
+    },
+    {
+      description: "Invalid, Should start with letter",
+      name: "-nn",
+      expected: false,
+    },
+    {
+      description: "Invalid, Should end with letter",
+      name: "nn-",
+      expected: false,
+    },
+    {
+      description: "Invalid, Should not contain consecutive symbols",
+      name: "n  n",
+      expected: false
+    },
+    {
+      description: "Invalid, Should not contain consecutive symbols",
+      name: "n''n",
+      expected: false
+    },
+    {
+      description: "Invalid, Should not contain consecutive symbols",
+      name: "n--n'",
+      expected: false
+    }
+  ]
+
+  it.each(testCases)("$description ($name)", ({name, expected}) => {
+    expect(formSchema.shape.profile.shape.firstName.safeParse(name).success).toBe(expected);
+  })
+})
+
 describe("Validate National ID Logic", () => {
   const testCases = [
     // century
@@ -30,7 +84,6 @@ describe("Validate National ID Logic", () => {
   it.each(testCases)("$description ($nationalId)", ({ nationalId, expected }) => {
     expect(formSchema.shape.profile.shape.nationalId.safeParse(nationalId).success).toBe(expected);
   })
-
 })
 
 describe("Validate Name on Card Logic", () => {
