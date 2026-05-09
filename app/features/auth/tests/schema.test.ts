@@ -71,6 +71,19 @@ describe("Account Cross-Field (username - password) Logic", () => {
   });
 });
 
+describe("Validate Name Transformation Logic", () => {
+  const testCases = [
+    {
+      description: "Valid, Should transform name to lowercase",
+      name: "AHMED",
+      expected: "ahmed",
+    },
+  ]
+  it.each(testCases)("Should transform name to lowercase", ({name, expected}) => {
+    expect(formSchema.shape.profile.shape.firstName.safeParse(name).data).toBe(expected)
+  })
+})
+
 describe("Validate Name (first - father - grandfather - family) Logic", () => {
   const testCases = [
     {
