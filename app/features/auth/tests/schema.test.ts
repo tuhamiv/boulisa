@@ -1,5 +1,76 @@
 import formSchema from "@/features/auth/logic/schema"
 
+describe("Validate Username Logic", () => {
+  const testCases = [
+    {
+      description: "Invalid, Should be a least 3 characters",
+      username: "uu",
+      expected: false
+    },
+    {
+      description: "Invalid, Should be a most 20 characters",
+      username: "u".repeat(21),
+      expected: false,
+    },
+    {
+      description: "Invalid, Should be only letters, numbers, . _ -, and '",
+      username: "u$u",
+      expected: false
+    },
+    {
+      description: "Invalid, Should start with a letter or number",
+      username: "_uu",
+      expected: false
+    },
+    {
+      description: "Invalid, Should end with a letter or number",
+      username: "uu_",
+      expected: false
+    },
+    {
+      description: "Invalid, Should contain at least one letter",
+      username: "1_2",
+      expected: false
+    },
+    {
+      description: "Invalid, Should not contain consecutive symbols",
+      username: "u..u",
+      expected: false
+    },
+    {
+      description: "Invalid, Should be a non-reserved",
+      username: "admin",
+      expected: false
+    }
+  ]
+
+  it.each(testCases)("$description ($username)", ({ username, expected }) => {
+    expect(
+      formSchema.shape.account.shape.username.safeParse(username).success
+    ).toBe(expected)
+  })
+})
+
+describe("Account Cross-Field (username - password) Logic", () => {
+  it("Should fail if password is the same as username", () => {
+    const invalidData = {
+      username: "username12345678",
+      email: "test@test.com",
+      password: "username12345678",
+      confirmPassword: "username12345678",
+    }
+
+    const result = formSchema.shape.account.safeParse(invalidData);
+
+    expect(result.success).toBe(false);
+
+    if (!result.success) {
+      const passwordError = result.error.issues.find(i => i.path.includes("password"));
+      expect(passwordError?.message).toBe("Password cannot be as the username");
+    }
+  });
+});
+
 describe("Validate Name (first - father - grandfather - family) Logic", () => {
   const testCases = [
     {
