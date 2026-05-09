@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 const nameConstraints = z
   .string()
-  .transform((n) => n.trim().normalize("NFKC"))
+  .transform((n) => n.trim().normalize("NFKC").toLowerCase())
   .pipe(z
     .string()
     .min(2, "Must be at least 2 characters")
