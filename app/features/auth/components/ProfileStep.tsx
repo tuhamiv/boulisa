@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import React from "react"
 import type { FormSchema } from "@/features/auth/logic/schema"
 import { Field, FieldGroup } from "@/components/ui/field"
-import { FormField } from "@/features/auth/components/form-field"
+import { FormField } from "@/features/auth/components/FormField"
 import {
   formatMobile,
   formatNationalId,

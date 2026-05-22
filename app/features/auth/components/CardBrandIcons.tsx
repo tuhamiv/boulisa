@@ -1,6 +1,6 @@
 import { type Control, useWatch } from "react-hook-form"
 import type { FormSchema } from "@/features/auth/logic/schema"
-import { MastercardSVG, VisaSVG } from "@/features/auth/components/card-icons"
+import { MastercardSVG, VisaSVG } from "@/features/auth/components/CardIcons"
 
 function CardBrandIcons({ control } : { control: Control<FormSchema>}) {
 

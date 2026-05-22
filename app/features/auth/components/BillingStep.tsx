@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Field, FieldGroup } from "@/components/ui/field"
-import { FormField } from "@/features/auth/components/form-field"
+import { FormField } from "@/features/auth/components/FormField"
 import { Button } from "@/components/ui/button"
 import {
   formatCardNumber,
@@ -20,8 +20,8 @@ import {
   formatExpiryDate,
   parseRawValue,
 } from "@/features/auth/logic/formatters"
-import CardBrandIcons from "@/features/auth/components/card-brand-icons"
-import { signup } from "@/features/auth/service/service"
+import CardBrandIcons from "@/features/auth/components/CardBrandIcons"
+import instance from "@/lib/api"
 
 const plans = [
   {
@@ -51,9 +51,13 @@ function BillingStep({
   const {control, handleSubmit} = useFormContext<FormSchema>();
 
   const onSubmit = (data: FormSchema) => {
-    console.log("Data on submit: " + data);
-    const promise = signup(data);
-    console.log("Promise: " + promise);
+    const {confirmPassword, ...accountData} = data.account;
+    const payload = {
+      ...data,
+      account: accountData
+    }
+    const promise = instance.post("/v1/auth/signup", payload);
+    console.log(promise);
     if(onNext) onNext();
   }
 
