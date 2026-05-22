@@ -1,1 +1,1 @@
-export { SignupWizard } from "./signup-wizard"
+export { SignupWizard } from "./SignupWizard"
