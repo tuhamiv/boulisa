@@ -21,18 +21,18 @@ import {
   parseRawValue,
 } from "@/features/auth/logic/formatters"
 import CardBrandIcons from "@/features/auth/components/CardBrandIcons"
-import instance from "@/lib/api"
+import { createCarrier } from "@/features/auth/api/authApi"
 
 const plans = [
   {
-    id: "pro",
+    id: "PRO",
     title: "Pro",
     description: "Enjoy our services",
     price: "9999",
     frequency: "month",
   },
   {
-    id: "elite",
+    id: "ELITE",
     title: "Elite",
     description: "Enjoy our services",
     price: "99999",
@@ -42,23 +42,29 @@ const plans = [
 
 function BillingStep({
   onPrev,
-  onNext
+  onNext,
+  setMessage,
 }: {
   onPrev: () => void
   onNext: () => void
+  setMessage: (message: string) => void;
 }) {
 
-  const {control, handleSubmit} = useFormContext<FormSchema>();
+  const { control, handleSubmit } = useFormContext<FormSchema>()
 
-  const onSubmit = (data: FormSchema) => {
-    const {confirmPassword, ...accountData} = data.account;
+  const onSubmit = async (data: FormSchema) => {
+    const { confirmPassword, ...accountData } = data.account
     const payload = {
       ...data,
-      account: accountData
+      account: accountData,
     }
-    const promise = instance.post("/v1/auth/signup", payload);
-    console.log(promise);
-    if(onNext) onNext();
+    try {
+      const data = await createCarrier(payload)
+      setMessage(data.message)
+    } catch (error) {
+      setMessage("Failed to create a carrier")
+    }
+    if (onNext) onNext()
   }
 
   return (

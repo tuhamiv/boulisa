@@ -124,7 +124,7 @@ const formSchema = z.object({
   }),
 
   billing: z.object({
-    plan: z.enum(["pro", "elite"]),
+    plan: z.enum(["PRO", "ELITE"]),
     nameOnCard: z
       .string()
       .transform((noc) => noc.trim().normalize("NFKC").toLowerCase())
