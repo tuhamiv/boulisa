@@ -37,6 +37,8 @@ export function SignupWizard() {
 
   const [currentStep, setCurrentStep] = useState(1)
 
+  const [message, setMessage] = useState<string>("")
+
   const prevStep = () => setCurrentStep(currentStep - 1)
 
   const nextStep = () => setCurrentStep(currentStep + 1)
@@ -60,7 +62,7 @@ export function SignupWizard() {
         mobile: "01154174079",
       },
       billing: {
-        plan: "pro",
+        plan: "PRO",
         nameOnCard: "",
         cardNumber: "4111111111111111",
         expiryDate: "1230",
@@ -71,16 +73,11 @@ export function SignupWizard() {
 
   const renderSteps = () => {
     switch (currentStep) {
-      case 1:
-        return <AccountStep onNext={nextStep} />
-      case 2:
-        return <ProfileStep onPrev={prevStep} onNext={nextStep} />
-      case 3:
-        return <BillingStep onPrev={prevStep} onNext={nextStep} />
-      case 4:
-        return <FormSentStep />
-      default:
-        return null
+      case 1: return <AccountStep onNext={nextStep} />
+      case 2: return <ProfileStep onPrev={prevStep} onNext={nextStep} />
+      case 3: return <BillingStep onPrev={prevStep} onNext={nextStep} setMessage={setMessage} />
+      case 4: return <FormSentStep message={message} />
+      default: return null
     }
   }
 
