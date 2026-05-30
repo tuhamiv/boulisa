@@ -62,8 +62,8 @@ function Home() {
                 </Link>
               ))}
             </div>
-            <Button size="sm" variant="default">
-              Login
+            <Button size="sm" variant="default" asChild>
+              <Link to="/login">Login</Link>
             </Button>
           </div>
         </nav>
@@ -149,7 +149,10 @@ function Home() {
           </div>
         </section>
 
-        <section id="solution" className="flex min-h-screen flex-col items-center justify-center border-y border-border bg-muted/30 px-6 pt-18">
+        <section
+          id="solution"
+          className="flex min-h-screen flex-col items-center justify-center border-y border-border bg-muted/30 px-6 pt-18"
+        >
           <div className="mx-auto w-full max-w-7xl">
             <div className="mb-16 text-center">
               <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">
@@ -207,7 +210,10 @@ function Home() {
           </div>
         </section>
 
-        <section id="pricing" className="flex min-h-screen flex-col items-center justify-center bg-background px-6 pt-18">
+        <section
+          id="pricing"
+          className="flex min-h-screen flex-col items-center justify-center bg-background px-6 pt-18"
+        >
           <div className="w-full max-w-7xl">
             <PricingCards pricingData={pricingData} />
           </div>
