@@ -85,15 +85,12 @@ function Home() {
                   (Boulisas), invite Shippers, and track Couriers in real-time.
                 </p>
                 <div className="flex flex-col gap-4 pt-4 sm:flex-row">
-                  <Link to="/signup">
-                    <Button
-                      size="lg"
-                      className="bg-primary text-primary-foreground hover:bg-primary/90"
-                    >
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90" asChild>
+                    <Link to="/signup">
                       Start as a Carrier
                       <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                   {/*<Button size="lg" variant="outline" className="border-border hover:bg-muted">Watch Demo</Button>*/}
                 </div>
               </div>
