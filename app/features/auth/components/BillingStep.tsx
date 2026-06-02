@@ -50,21 +50,18 @@ function BillingStep({
   setMessage: (message: string) => void;
 }) {
 
-  const { control, handleSubmit } = useFormContext<FormSchema>()
+  const { control, handleSubmit } = useFormContext<FormSchema>();
 
-  const onSubmit = async (data: FormSchema) => {
-    const { confirmPassword, ...accountData } = data.account
-    const payload = {
-      ...data,
-      account: accountData,
-    }
+  const onSubmit = async (formData: FormSchema) => {
+    const { confirmPassword, ...accountData } = formData.account
+    const payload = { ...formData, account: accountData }
     try {
-      const data = await createCarrier(payload)
-      setMessage(data.message)
+      const data = await createCarrier(payload);
+      setMessage(data.message);
     } catch (error) {
-      setMessage("Failed to create a carrier")
+      setMessage("Failed to create a carrier");
     }
-    if (onNext) onNext()
+    if (onNext) onNext();
   }
 
   return (
