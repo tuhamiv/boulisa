@@ -11,6 +11,7 @@ import ProfileStep from "@/features/auth/components/ProfileStep"
 import BillingStep from "@/features/auth/components/BillingStep"
 import FormSentStep from "@/features/auth/components/FormSentStep"
 import { Button } from "@/components/ui/button"
+import { SignupContext } from "@/features/auth/context/SignupContext"
 
 const steps = [
   {
@@ -71,16 +72,6 @@ export function SignupWizard() {
     },
   })
 
-  const renderSteps = () => {
-    switch (currentStep) {
-      case 1: return <AccountStep onNext={nextStep} />
-      case 2: return <ProfileStep onPrev={prevStep} onNext={nextStep} />
-      case 3: return <BillingStep onPrev={prevStep} onNext={nextStep} setMessage={setMessage} />
-      case 4: return <FormSentStep message={message} />
-      default: return null
-    }
-  }
-
   return (
     <FormProvider {...methods}>
       <div className="grid min-h-screen w-full lg:grid-cols-3">
@@ -116,7 +107,12 @@ export function SignupWizard() {
                 )
               })}
             </div>
-            {renderSteps()}
+            {currentStep === 1 && <AccountStep onNext={nextStep} />}
+            {currentStep === 2 && <ProfileStep onPrev={prevStep} onNext={nextStep} />}
+            <SignupContext value={{message, setMessage}}>
+              {currentStep === 3 && <BillingStep onPrev={prevStep} onNext={nextStep}/>}
+              {currentStep === 4 && <FormSentStep />}
+            </SignupContext>
           </div>
         </div>
       </div>

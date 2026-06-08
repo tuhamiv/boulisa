@@ -1,8 +1,10 @@
-type FormSentStepProps = {
-  message: string
-}
+import { useContext } from "react"
+import { SignupContext } from "@/features/auth/context/SignupContext"
 
-function FormSentStep({ message }: FormSentStepProps) {
+function FormSentStep() {
+
+  const { message } = useContext(SignupContext)
+
   return (
     <>
       <div className="mb-6 flex flex-col p-3">
@@ -13,4 +15,4 @@ function FormSentStep({ message }: FormSentStepProps) {
   )
 }
 
-export default FormSentStep;
+export default FormSentStep

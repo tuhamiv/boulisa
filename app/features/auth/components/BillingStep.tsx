@@ -22,6 +22,8 @@ import {
 } from "@/features/auth/logic/formatters"
 import CardBrandIcons from "@/features/auth/components/CardBrandIcons"
 import { createCarrier } from "@/features/auth/api/authApi"
+import { useContext } from "react"
+import { SignupContext } from "@/features/auth/context/SignupContext"
 
 const plans = [
   {
@@ -43,25 +45,25 @@ const plans = [
 function BillingStep({
   onPrev,
   onNext,
-  setMessage,
 }: {
   onPrev: () => void
   onNext: () => void
-  setMessage: (message: string) => void;
 }) {
 
-  const { control, handleSubmit } = useFormContext<FormSchema>();
+  const { control, handleSubmit } = useFormContext<FormSchema>()
+
+  const { setMessage } = useContext(SignupContext)
 
   const onSubmit = async (formData: FormSchema) => {
     const { confirmPassword, ...accountData } = formData.account
     const payload = { ...formData, account: accountData }
     try {
-      const data = await createCarrier(payload);
-      setMessage(data.message);
+      const data = await createCarrier(payload)
+      setMessage(data.message)
     } catch (error) {
-      setMessage("Failed to create a carrier");
+      setMessage("Failed to create a carrier")
     }
-    if (onNext) onNext();
+    if (onNext) onNext()
   }
 
   return (
@@ -173,4 +175,4 @@ function BillingStep({
   )
 }
 
-export default BillingStep;
+export default BillingStep
